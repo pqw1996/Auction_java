@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.pqw.dao.AuctionDAO">
+	<resultMap id="BaseResultMap"
+		type="com.accp.pqw.pojo.Auction">
+		<id column="auctionId" jdbcType="INTEGER" property="auctionid" />
+		<result column="auctionName" jdbcType="VARCHAR"
+			property="auctionname" />
+		<result column="auctionStartPrice" jdbcType="DOUBLE"
+			property="auctionstartprice" />
+		<result column="auctionUpset" jdbcType="DOUBLE"
+			property="auctionupset" />
+		<result column="auctionStartTime" jdbcType="TIMESTAMP"
+			property="auctionstarttime" />
+		<result column="auctionEndTime" jdbcType="TIMESTAMP"
+			property="auctionendtime" />
+		<result column="auctionDesc" jdbcType="VARCHAR"
+			property="auctiondesc" />
+		<!-- <result column="userId" jdbcType="INTEGER" property="userid" /> <result 
+			column="transactionPrice" jdbcType="DOUBLE" property="transactionprice" /> 
+			<collection property="list" column="auctionId" select="selectList" /> -->
+	</resultMap>
+	<!-- <select id="selectList" resultType="com.accp.pqw.pojo.Auctionrecord"> 
+		SELECT * FROM auctionrecord WHERE auctionId = #{0} </select> -->
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.accp.pqw.pojo.Auction">
+		<result column="pic" jdbcType="LONGVARBINARY" property="pic" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		auctionId, auctionName, auctionStartPrice, auctionUpset,
+		auctionStartTime,
+		auctionEndTime,
+		auctionDesc
+	</sql>
+	<sql id="Blob_Column_List">
+		pic
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from auction
+		where auctionId = #{auctionid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from auction
+		where auctionId =
+		#{auctionid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" keyColumn="auctionId"
+		keyProperty="auctionid" parameterType="com.accp.pqw.pojo.Auction"
+		useGeneratedKeys="true">
+		insert into auction (auctionName, auctionStartPrice,
+		auctionUpset,
+		auctionStartTime, auctionEndTime, auctionDesc,
+		pic,userId)
+		values (#{auctionname,jdbcType=VARCHAR},
+		#{auctionstartprice,jdbcType=DOUBLE}, #{auctionupset,jdbcType=DOUBLE},
+		#{auctionstarttime,jdbcType=TIMESTAMP},
+		#{auctionendtime,jdbcType=TIMESTAMP}, #{auctiondesc,jdbcType=VARCHAR},
+		#{pic,jdbcType=LONGVARBINARY},#{userid,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" keyColumn="auctionId"
+		keyProperty="auctionid" parameterType="com.accp.pqw.pojo.Auction"
+		useGeneratedKeys="true">
+		insert into auction
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="auctionname != null">
+				auctionName,
+			</if>
+			<if test="auctionstartprice != null">
+				auctionStartPrice,
+			</if>
+			<if test="auctionupset != null">
+				auctionUpset,
+			</if>
+			<if test="auctionstarttime != null">
+				auctionStartTime,
+			</if>
+			<if test="auctionendtime != null">
+				auctionEndTime,
+			</if>
+			<if test="auctiondesc != null">
+				auctionDesc,
+			</if>
+			<if test="pic != null">
+				pic,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="auctionname != null">
+				#{auctionname,jdbcType=VARCHAR},
+			</if>
+			<if test="auctionstartprice != null">
+				#{auctionstartprice,jdbcType=DOUBLE},
+			</if>
+			<if test="auctionupset != null">
+				#{auctionupset,jdbcType=DOUBLE},
+			</if>
+			<if test="auctionstarttime != null">
+				#{auctionstarttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auctionendtime != null">
+				#{auctionendtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auctiondesc != null">
+				#{auctiondesc,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				#{pic,jdbcType=LONGVARBINARY},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.accp.pqw.pojo.Auction">
+		update auction
+		<set>
+			<if test="auctionname != null">
+				auctionName = #{auctionname,jdbcType=VARCHAR},
+			</if>
+			<if test="auctionstartprice != null">
+				auctionStartPrice = #{auctionstartprice,jdbcType=DOUBLE},
+			</if>
+			<if test="auctionupset != null">
+				auctionUpset = #{auctionupset,jdbcType=DOUBLE},
+			</if>
+			<if test="auctionstarttime != null">
+				auctionStartTime =
+				#{auctionstarttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auctionendtime != null">
+				auctionEndTime = #{auctionendtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auctiondesc != null">
+				auctionDesc = #{auctiondesc,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				pic = #{pic,jdbcType=LONGVARBINARY},
+			</if>
+		</set>
+		where auctionId = #{auctionid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.accp.pqw.pojo.Auction">
+		update auction
+		set auctionName =
+		#{auctionname,jdbcType=VARCHAR},
+		auctionStartPrice =
+		#{auctionstartprice,jdbcType=DOUBLE},
+		auctionUpset =
+		#{auctionupset,jdbcType=DOUBLE},
+		auctionStartTime =
+		#{auctionstarttime,jdbcType=TIMESTAMP},
+		auctionEndTime =
+		#{auctionendtime,jdbcType=TIMESTAMP},
+		auctionDesc =
+		#{auctiondesc,jdbcType=VARCHAR},
+		pic = #{pic,jdbcType=LONGVARBINARY}
+		where auctionId = #{auctionid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.accp.pqw.pojo.Auction">
+		update auction
+		set auctionName =
+		#{auctionname,jdbcType=VARCHAR},
+		auctionStartPrice =
+		#{auctionstartprice,jdbcType=DOUBLE},
+		auctionUpset =
+		#{auctionupset,jdbcType=DOUBLE},
+		auctionStartTime =
+		#{auctionstarttime,jdbcType=TIMESTAMP},
+		auctionEndTime =
+		#{auctionendtime,jdbcType=TIMESTAMP},
+		auctionDesc =
+		#{auctiondesc,jdbcType=VARCHAR}
+		where auctionId =
+		#{auctionid,jdbcType=INTEGER}
+	</update>
+</mapper>

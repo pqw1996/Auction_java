@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.pqw.dao.AuctionrecordDAO">
+	<resultMap id="BaseResultMap"
+		type="com.accp.pqw.pojo.Auctionrecord">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="userId" jdbcType="INTEGER" property="userid" />
+		<result column="auctionId" jdbcType="INTEGER"
+			property="auctionid" />
+		<result column="auctionTime" jdbcType="TIMESTAMP"
+			property="auctiontime" />
+		<result column="auctionPrice" jdbcType="DOUBLE"
+			property="auctionprice" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, userId, auctionId, auctionTime, auctionPrice
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from auctionrecord
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from auctionrecord
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" keyColumn="id" keyProperty="id"
+		parameterType="com.accp.pqw.pojo.Auctionrecord"
+		useGeneratedKeys="true">
+		insert into auctionrecord (userId, auctionId, auctionTime,
+		auctionPrice,userName)
+		values (#{userid,jdbcType=INTEGER}, #{auctionid,jdbcType=INTEGER},
+		#{auctiontime,jdbcType=TIMESTAMP},
+		#{auctionprice,jdbcType=DOUBLE},#{username,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" keyColumn="id" keyProperty="id"
+		parameterType="com.accp.pqw.pojo.Auctionrecord"
+		useGeneratedKeys="true">
+		insert into auctionrecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userid != null">
+				userId,
+			</if>
+			<if test="auctionid != null">
+				auctionId,
+			</if>
+			<if test="auctiontime != null">
+				auctionTime,
+			</if>
+			<if test="auctionprice != null">
+				auctionPrice,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userid != null">
+				#{userid,jdbcType=INTEGER},
+			</if>
+			<if test="auctionid != null">
+				#{auctionid,jdbcType=INTEGER},
+			</if>
+			<if test="auctiontime != null">
+				#{auctiontime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auctionprice != null">
+				#{auctionprice,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.accp.pqw.pojo.Auctionrecord">
+		update auctionrecord
+		<set>
+			<if test="userid != null">
+				userId = #{userid,jdbcType=INTEGER},
+			</if>
+			<if test="auctionid != null">
+				auctionId = #{auctionid,jdbcType=INTEGER},
+			</if>
+			<if test="auctiontime != null">
+				auctionTime = #{auctiontime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auctionprice != null">
+				auctionPrice = #{auctionprice,jdbcType=DOUBLE},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.accp.pqw.pojo.Auctionrecord">
+		update auctionrecord
+		set userId = #{userid,jdbcType=INTEGER},
+		auctionId = #{auctionid,jdbcType=INTEGER},
+		auctionTime = #{auctiontime,jdbcType=TIMESTAMP},
+		auctionPrice = #{auctionprice,jdbcType=DOUBLE}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.pqw.dao.AuctionuserDAO">
+  <resultMap id="BaseResultMap" type="com.accp.pqw.pojo.Auctionuser">
+    <id column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="userPassword" jdbcType="VARCHAR" property="userpassword" />
+    <result column="userCardNo" jdbcType="VARCHAR" property="usercardno" />
+    <result column="userTel" jdbcType="VARCHAR" property="usertel" />
+    <result column="userAddress" jdbcType="VARCHAR" property="useraddress" />
+    <result column="userPostNumber" jdbcType="INTEGER" property="userpostnumber" />
+    <result column="userIsadmin" jdbcType="INTEGER" property="userisadmin" />
+    <result column="userQuestion" jdbcType="VARCHAR" property="userquestion" />
+    <result column="userAnswer" jdbcType="VARCHAR" property="useranswer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userId, userName, userPassword, userCardNo, userTel, userAddress, userPostNumber, 
+    userIsadmin, userQuestion, userAnswer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from auctionuser
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from auctionuser
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="userId" keyProperty="userid" parameterType="com.accp.pqw.pojo.Auctionuser" useGeneratedKeys="true">
+    insert into auctionuser (userName, userPassword, userCardNo, 
+      userTel, userAddress, userPostNumber, 
+      userIsadmin, userQuestion, userAnswer
+      )
+    values (#{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, #{usercardno,jdbcType=VARCHAR}, 
+      #{usertel,jdbcType=VARCHAR}, #{useraddress,jdbcType=VARCHAR}, #{userpostnumber,jdbcType=INTEGER}, 
+      #{userisadmin,jdbcType=INTEGER}, #{userquestion,jdbcType=VARCHAR}, #{useranswer,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="userId" keyProperty="userid" parameterType="com.accp.pqw.pojo.Auctionuser" useGeneratedKeys="true">
+    insert into auctionuser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="userpassword != null">
+        userPassword,
+      </if>
+      <if test="usercardno != null">
+        userCardNo,
+      </if>
+      <if test="usertel != null">
+        userTel,
+      </if>
+      <if test="useraddress != null">
+        userAddress,
+      </if>
+      <if test="userpostnumber != null">
+        userPostNumber,
+      </if>
+      <if test="userisadmin != null">
+        userIsadmin,
+      </if>
+      <if test="userquestion != null">
+        userQuestion,
+      </if>
+      <if test="useranswer != null">
+        userAnswer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null">
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usercardno != null">
+        #{usercardno,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null">
+        #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null">
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userpostnumber != null">
+        #{userpostnumber,jdbcType=INTEGER},
+      </if>
+      <if test="userisadmin != null">
+        #{userisadmin,jdbcType=INTEGER},
+      </if>
+      <if test="userquestion != null">
+        #{userquestion,jdbcType=VARCHAR},
+      </if>
+      <if test="useranswer != null">
+        #{useranswer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.pqw.pojo.Auctionuser">
+    update auctionuser
+    <set>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null">
+        userPassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usercardno != null">
+        userCardNo = #{usercardno,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null">
+        userTel = #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null">
+        userAddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userpostnumber != null">
+        userPostNumber = #{userpostnumber,jdbcType=INTEGER},
+      </if>
+      <if test="userisadmin != null">
+        userIsadmin = #{userisadmin,jdbcType=INTEGER},
+      </if>
+      <if test="userquestion != null">
+        userQuestion = #{userquestion,jdbcType=VARCHAR},
+      </if>
+      <if test="useranswer != null">
+        userAnswer = #{useranswer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.pqw.pojo.Auctionuser">
+    update auctionuser
+    set userName = #{username,jdbcType=VARCHAR},
+      userPassword = #{userpassword,jdbcType=VARCHAR},
+      userCardNo = #{usercardno,jdbcType=VARCHAR},
+      userTel = #{usertel,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userPostNumber = #{userpostnumber,jdbcType=INTEGER},
+      userIsadmin = #{userisadmin,jdbcType=INTEGER},
+      userQuestion = #{userquestion,jdbcType=VARCHAR},
+      userAnswer = #{useranswer,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>
